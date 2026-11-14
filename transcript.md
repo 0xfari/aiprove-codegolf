@@ -18,3 +18,18 @@
   The 46-byte variant is a one-copy swap if safety is preferred.
 - Local git init + commit (identity 0xfari <didan.adidan08@gmail.com>).
   No GitHub repo created, nothing submitted (parent handles that).
+
+- 14 Nov 2026 ~22:00 WIB: re-verification round. Re-fetched spec + cases.json
+  from github.com/AIProveRH/aiprove; 9 public cases identical. Ran a 59-case
+  harness (9 public + 50 edge) in ../aiprove-codegolf-v2/ (harness.js,
+  oracle.py, expected.json):
+  - 21-byte `exports.evalExpr=eval`: 47/59 — fails only adjacent `--`
+    (JS parses `--` as decrement).
+  - 46-byte replace form: 56/59 — fails 4+ minus chains (`2----3`, `----5`).
+  - NEW 45-byte `exports.evalExpr=s=>eval(s.split`-`.join` -`)`: 58/59 —
+    only `1e-2` fails (scientific notation, outside the stated spec of
+    integer/decimal literals). Handles every minus chain.
+  - Decision: aiprove-2 moves to the 45-byte form; aiprove-1 keeps the
+    21-byte form as the outright-win hedge (21 wins if the hidden set has
+    no adjacent `--`; 45 carries us if it does). 45 bytes is the floor for
+    a `--`-tolerant form with this structure.

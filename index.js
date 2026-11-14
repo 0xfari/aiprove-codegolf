@@ -1,1 +1,1 @@
-exports.evalExpr=s=>eval(s.replace(/--/g,'+'))
+exports.evalExpr=s=>eval(s.split`-`.join` -`)
